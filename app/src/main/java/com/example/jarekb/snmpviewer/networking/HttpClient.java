@@ -1,4 +1,4 @@
-package com.example.jarekb.snmpviewer;
+package com.example.jarekb.snmpviewer.networking;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -22,32 +22,44 @@ import java.net.URL;
  */
 
 public class HttpClient {
-    /**
-     * Method sends request and gets request using HTTP GET.
-     * @param url URL of the destination of the request
-     * @return HTTP GET response
-     */
-    public static String getHttpRequest(String url) throws IOException {
-        URL mUrl;
+
+    private String result;
+    private int responseCode;
+    private URL mUrl;
+
+   public void sendHttpRequest(String url) throws IOException
+    {
+        result = "";
+        mUrl = new URL(url);
         HttpURLConnection urlConnection = null;
 
-        mUrl = new URL(url);
+
 
         urlConnection = (HttpURLConnection) mUrl.openConnection();
         urlConnection.connect();
         urlConnection.setRequestMethod("GET");
+        responseCode = urlConnection.getResponseCode();
 
         InputStream is = urlConnection.getInputStream();
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-        String result = "";
         String data = "";
 
         while ((data = reader.readLine()) != null) {
             result += data + "\n";
         }
-        return result;
+    }
 
+    public String getResult() {
+        return result;
+    }
+
+    public int getResponseCode() {
+        return responseCode;
+    }
+
+    public URL getmUrl() {
+        return mUrl;
     }
 }
 
