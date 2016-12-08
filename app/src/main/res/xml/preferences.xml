@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="SNMP Agent Settings"
+        android:key="pref_key_snmp_agent_settings">
+        <EditTextPreference
+            android:title="Agent IP"
+            android:defaultValue="localhost"
+            android:key="pref_key_snmp_agent_ip" />
+        <EditTextPreference
+            android:title="SNMP service port"
+            android:defaultValue="161"
+            android:key="pref_key_snmp_agent_port" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Server Proxy"
+        android:key="pref_key_snmp_agent_settings">
+        <EditTextPreference
+            android:title="Proxy IP"
+            android:defaultValue="localhost"
+            android:key="pref_key_proxy_ip" />
+        <EditTextPreference
+            android:title="Proxy port"
+            android:defaultValue="5000"
+            android:key="pref_key_proxy_port" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

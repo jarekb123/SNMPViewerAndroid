@@ -26,7 +26,7 @@ public class SNMPObjectDisplay extends AppCompatActivity {
 
     String name, oid, type, value;
 
-private class GetObject extends AsyncTask <String, Void, String>
+private class GetObject extends AsyncTask <String, Integer, String>
 {
     private ProgressDialog progressDialog;
 
@@ -44,10 +44,18 @@ private class GetObject extends AsyncTask <String, Void, String>
         try {
             return HttpClient.getHttpRequest(params[0]);
         } catch (IOException ioe) {
+            publishProgress(-1);
             ioe.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Error during downloading data from server", Toast.LENGTH_LONG).show();
+
         }
         return null;
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+        super.onProgressUpdate(values);
+        if(values[0]==-1)
+            Toast.makeText(SNMPObjectDisplay.this, "Error during connecting to proxy server", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -94,6 +102,7 @@ private class GetObject extends AsyncTask <String, Void, String>
         {
             jsonEx.printStackTrace();
             Toast.makeText(getApplicationContext(), "Wrong response from server", Toast.LENGTH_LONG).show();
+            moveTaskToBack(true);
         }
 
     }
