@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SNMP Viewer</string>
+    <string-array name="snmp_methods">
+        <item>Get</item>
+        <item>Get Next</item>
+    </string-array>
 </resources>
