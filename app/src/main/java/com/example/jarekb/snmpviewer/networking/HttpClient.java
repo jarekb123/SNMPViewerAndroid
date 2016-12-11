@@ -46,7 +46,7 @@ public class HttpClient {
         String data = "";
 
         while ((data = reader.readLine()) != null) {
-            result += data + "\n";
+            result += data;
         }
     }
 

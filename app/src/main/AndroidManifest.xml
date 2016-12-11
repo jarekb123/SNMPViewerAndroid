@@ -20,7 +20,14 @@
         </activity>
 
         <activity android:name=".SNMPObjectDisplay"></activity>
-        <activity android:name=".Preferences">
+        <activity android:name=".preferences.MyPreferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity android:name=".SNMPTableView"
+            android:screenOrientation="locked">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

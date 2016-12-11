@@ -19,8 +19,6 @@ public class MyPreferenceFragment extends PreferenceFragment implements SharedPr
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
-
-
     }
 
     @Override
@@ -42,10 +40,10 @@ public class MyPreferenceFragment extends PreferenceFragment implements SharedPr
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                           String key) {
-        if(key.equals(Preferences.PREF_KEY_PROXY_IP) ||
-                key.equals(Preferences.PREF_KEY_PROXY_PORT) ||
-                key.equals(Preferences.PREF_KEY_SNMP_AGENT_IP) ||
-                key.equals(Preferences.PREF_KEY_SNMP_AGENT_PORT)) {
+        if(key.equals(MyPreferences.PREF_KEY_PROXY_IP) ||
+                key.equals(MyPreferences.PREF_KEY_PROXY_PORT) ||
+                key.equals(MyPreferences.PREF_KEY_SNMP_AGENT_IP) ||
+                key.equals(MyPreferences.PREF_KEY_SNMP_AGENT_PORT)) {
             Preference preference = findPreference(key);
             preference.setSummary(sharedPreferences.getString(key, ""));
         }

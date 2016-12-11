@@ -27,45 +27,79 @@
             android:layout_height="match_parent"
             android:padding="10dp">
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="51dp">
+
+                <TextView
+                    android:text="OID: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewOID"
+                    android:textSize="18sp"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/editTextOID"
+                    android:layout_weight="0.67" />
+
+            </LinearLayout>
+
             <TextView
-                android:text="OID: "
+                android:text="Method: "
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textViewOID"
+                android:id="@+id/textView3"
                 android:textSize="18sp" />
 
-            <EditText
+            <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/editTextOID" />
+                android:layout_height="143dp"
+                android:id="@+id/radio_method">
 
-            <TextView
-                android:text="Server IP:"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textViewIP"
-                android:textSize="18sp" />
+                <RadioButton
+                    android:text="GET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio_get"
+                    android:layout_weight="1"
+                    android:checked="true" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:text="192.168.0.19"
-                android:ems="10"
-                android:id="@+id/editTextIP" />
+                <RadioButton
+                    android:text="GET NEXT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio_get_next"
+                    android:layout_weight="1"
+                    android:checked="false" />
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinnerAction" />
+                <RadioButton
+                    android:text="TABLE VIEW"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/radio_table_view"
+                    android:layout_weight="1" />
+            </RadioGroup>
 
-            <Button
-                android:text="Get SNMP Object"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button2" />
+                android:layout_height="match_parent">
+
+                <Button
+                    android:text="Execute Query"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/button2"
+                    android:elevation="0dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
 

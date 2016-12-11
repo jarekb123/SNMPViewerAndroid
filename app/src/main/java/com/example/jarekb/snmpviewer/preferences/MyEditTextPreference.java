@@ -1,6 +1,7 @@
 package com.example.jarekb.snmpviewer.preferences;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.preference.EditTextPreference;
 import android.util.AttributeSet;
 
@@ -11,10 +12,14 @@ import android.util.AttributeSet;
 public final class MyEditTextPreference extends EditTextPreference {
     public MyEditTextPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        getEditText().setRawInputType(Configuration.KEYBOARD_QWERTY);
     }
 
     public MyEditTextPreference(Context context) {
         super(context);
+
+        getEditText().setRawInputType(Configuration.KEYBOARD_QWERTY);
     }
 
     @Override

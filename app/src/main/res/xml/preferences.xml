@@ -4,11 +4,11 @@
     <PreferenceCategory
         android:title="SNMP Agent Settings"
         android:key="pref_key_snmp_agent_settings">
-        <EditTextPreference
+        <com.example.jarekb.snmpviewer.preferences.MyEditTextPreference
             android:title="Agent IP"
             android:defaultValue="localhost"
             android:key="pref_key_snmp_agent_ip" />
-        <EditTextPreference
+        <com.example.jarekb.snmpviewer.preferences.MyEditTextPreference
             android:title="SNMP service port"
             android:defaultValue="161"
             android:key="pref_key_snmp_agent_port" />
@@ -16,11 +16,11 @@
     <PreferenceCategory
         android:title="Server Proxy"
         android:key="pref_key_snmp_agent_settings">
-        <EditTextPreference
+        <com.example.jarekb.snmpviewer.preferences.MyEditTextPreference
             android:title="Proxy IP"
             android:defaultValue="localhost"
             android:key="pref_key_proxy_ip" />
-        <EditTextPreference
+        <com.example.jarekb.snmpviewer.preferences.MyEditTextPreference
             android:title="Proxy port"
             android:defaultValue="5000"
             android:key="pref_key_proxy_port" />

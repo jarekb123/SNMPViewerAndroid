@@ -3,5 +3,6 @@
     <string-array name="snmp_methods">
         <item>Get</item>
         <item>Get Next</item>
+        <item>Table View</item>
     </string-array>
 </resources>

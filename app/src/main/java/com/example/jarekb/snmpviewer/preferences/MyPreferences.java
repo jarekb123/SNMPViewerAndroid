@@ -16,10 +16,10 @@ import com.example.jarekb.snmpviewer.R;
 public class MyPreferences extends AppCompatActivity {
 
     // static keys of preferences fields
-    static final String PREF_KEY_SNMP_AGENT_IP = "pref_key_snmp_agent_ip";
-    static final String PREF_KEY_SNMP_AGENT_PORT = "pref_key_snmp_agent_port";
-    static final String PREF_KEY_PROXY_IP = "pref_key_proxy_ip";
-    static final String PREF_KEY_PROXY_PORT = "pref_key_proxy_port";
+    static public final String PREF_KEY_SNMP_AGENT_IP = "pref_key_snmp_agent_ip";
+    static public final String PREF_KEY_SNMP_AGENT_PORT = "pref_key_snmp_agent_port";
+    static public final String PREF_KEY_PROXY_IP = "pref_key_proxy_ip";
+    static public final String PREF_KEY_PROXY_PORT = "pref_key_proxy_port";
 
 
     @Override
