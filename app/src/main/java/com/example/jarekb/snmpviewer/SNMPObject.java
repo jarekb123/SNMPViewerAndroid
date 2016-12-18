@@ -3,11 +3,13 @@ package com.example.jarekb.snmpviewer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Comparator;
+
 /**
  * Created by jarekb on 12/10/16.
  */
 
-public class SNMPObject {
+public class SNMPObject implements Comparable<SNMPObject> {
     String name;
     String oid;
     String value;
@@ -19,6 +21,12 @@ public class SNMPObject {
         oid = jsonObject.getString("oid");
         type = jsonObject.getString("type");
         value = jsonObject.getString("val");
+    }
+
+    @Override
+    public int compareTo(SNMPObject snmpObject) {
+        int compareObjects = oid.compareTo(snmpObject.oid);
+        return compareObjects;
     }
 
     public String getName() {
@@ -35,5 +43,16 @@ public class SNMPObject {
 
     public String getType() {
         return type;
+    }
+
+    public static SNMPObjectsComparator getComparator() {
+        return new SNMPObjectsComparator();
+    }
+
+    private static class SNMPObjectsComparator implements Comparator<SNMPObject> {
+        @Override
+        public int compare(SNMPObject snmpObject, SNMPObject t1) {
+            return snmpObject.compareTo(t1);
+        }
     }
 }

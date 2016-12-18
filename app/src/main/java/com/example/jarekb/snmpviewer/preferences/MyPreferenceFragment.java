@@ -43,7 +43,7 @@ public class MyPreferenceFragment extends PreferenceFragment implements SharedPr
         if(key.equals(MyPreferences.PREF_KEY_PROXY_IP) ||
                 key.equals(MyPreferences.PREF_KEY_PROXY_PORT) ||
                 key.equals(MyPreferences.PREF_KEY_SNMP_AGENT_IP) ||
-                key.equals(MyPreferences.PREF_KEY_SNMP_AGENT_PORT)) {
+                key.equals(MyPreferences.PREF_KEY_SNMP_AGENT_PORT) || key.equals(MyPreferences.PREF_KEY_SNMP_COMMUNITY_NAME)) {
             Preference preference = findPreference(key);
             preference.setSummary(sharedPreferences.getString(key, ""));
         }

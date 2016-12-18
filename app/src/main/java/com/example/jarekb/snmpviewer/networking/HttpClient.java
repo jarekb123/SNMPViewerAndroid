@@ -39,6 +39,9 @@ public class HttpClient {
         urlConnection.connect();
         urlConnection.setRequestMethod("GET");
         responseCode = urlConnection.getResponseCode();
+        System.out.println("responseCode: " + responseCode);
+        if(responseCode != 200)
+            return;
 
         InputStream is = urlConnection.getInputStream();
 

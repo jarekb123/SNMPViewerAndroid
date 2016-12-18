@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by jarekb on 12/10/16.
@@ -146,31 +147,22 @@ public class SNMPTableView extends AppCompatActivity {
         String proxyPort = preferences.getString(MyPreferences.PREF_KEY_PROXY_PORT, "");
         String agentIP = preferences.getString(MyPreferences.PREF_KEY_SNMP_AGENT_IP, "");
         String agentPort = preferences.getString(MyPreferences.PREF_KEY_SNMP_AGENT_PORT, "");
+        String communityName = preferences.getString(MyPreferences.PREF_KEY_SNMP_COMMUNITY_NAME, "");
 
-        HttpURLBuilder initURL = new HttpURLBuilder(proxyIP, proxyPort, "init");
-        initURL.addGETParam("community_name", "public");
-        initURL.addGETParam("address", agentIP);
-        initURL.addGETParam("port", agentPort);
 
         try {
+
             HttpClient httpClient = new HttpClient();
-            httpClient.sendHttpRequest(initURL.getURLString());
 
-            String init;
-            if (httpClient.getResponseCode() == 200)
-                init = httpClient.getResult();
-            else throw new Exception("Blad serwera: " + httpClient.getResponseCode());
-            if (init.equals("OK!")) {
+            HttpURLBuilder queryUrlBuilder = new HttpURLBuilder(proxyIP, proxyPort, "get_table");
+            queryUrlBuilder.addGETParam("oid", oid);
+            httpClient.sendHttpRequest(queryUrlBuilder.getURLString());
 
-                HttpURLBuilder queryUrlBuilder = new HttpURLBuilder(proxyIP, proxyPort, "get_table");
-                queryUrlBuilder.addGETParam("oid", oid);
-                httpClient.sendHttpRequest(queryUrlBuilder.getURLString());
+            String jsonString = httpClient.getResult();
 
-                String jsonString = httpClient.getResult();
+            JSONArray jsonArray = new JSONArray(jsonString);
+            return jsonArray;
 
-                JSONArray jsonArray = new JSONArray(jsonString);
-                return jsonArray;
-            }
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -211,6 +203,7 @@ public class SNMPTableView extends AppCompatActivity {
         nameHead.setText("NAME");
         TextView valueHead = (TextView) headRow.findViewById(R.id.field_right);
         valueHead.setText("VALUE");
+        Collections.sort(rows.get(index));
         tableLayout.addView(headRow);
         for(int i = 0; i<rows.get(index).size(); i++) {
             TableRow dataRow = (TableRow) LayoutInflater.from(this).inflate(R.layout.table_row, null);

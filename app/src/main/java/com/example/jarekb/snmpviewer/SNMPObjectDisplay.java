@@ -29,7 +29,7 @@ import java.io.IOException;
 
 public class SNMPObjectDisplay extends AppCompatActivity {
 
-    String snmpIP, snmpPort, proxyIP, proxyPort;
+    String proxyIP, proxyPort;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -58,25 +58,17 @@ public class SNMPObjectDisplay extends AppCompatActivity {
             try {
 
 
-                HttpURLBuilder httpURLBuilder = new HttpURLBuilder(proxyIP, proxyPort, "init");
-                httpURLBuilder.addGETParam("community_name", "public");
-                httpURLBuilder.addGETParam("address", snmpIP);
-                httpURLBuilder.addGETParam("port", snmpPort);
 
-                HttpClient httpClient = new HttpClient();
-                httpClient.sendHttpRequest(httpURLBuilder.getURLString());
+                HttpClient snmpQueryRequest = new HttpClient();
+                HttpURLBuilder queryURLBuilder = new HttpURLBuilder(proxyIP, proxyPort, params[0]);
+                queryURLBuilder.addGETParam("oid", params[1]);
+                snmpQueryRequest.sendHttpRequest(queryURLBuilder.getURLString());
 
-                String result = httpClient.getResult();
-                System.out.println(result);
-                if(result.equals("OK!"))
-                {
-                    HttpClient snmpQueryRequest = new HttpClient();
-                    HttpURLBuilder queryURLBuilder = new HttpURLBuilder(proxyIP, proxyPort, params[0]);
-                    queryURLBuilder.addGETParam("oid", params[1]);
-                    snmpQueryRequest.sendHttpRequest(queryURLBuilder.getURLString());
+                if(snmpQueryRequest.getResponseCode() != 200)
+                    return null;
 
-                    return snmpQueryRequest.getResult();
-                }
+                return snmpQueryRequest.getResult();
+
             } catch (IOException ioe) {
                 publishProgress(-1);
                 ioe.printStackTrace();
@@ -88,8 +80,10 @@ public class SNMPObjectDisplay extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            if(values[0]==-1)
+            if(values[0]==-1) {
                 Toast.makeText(SNMPObjectDisplay.this, "Error during connecting to proxy server", Toast.LENGTH_LONG).show();
+                finish();
+            }
         }
 
         @Override
@@ -114,10 +108,9 @@ public class SNMPObjectDisplay extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        snmpIP = sharedPreferences.getString(MyPreferences.PREF_KEY_SNMP_AGENT_IP, "");
-        snmpPort = sharedPreferences.getString(MyPreferences.PREF_KEY_SNMP_AGENT_PORT, "");
         proxyIP = sharedPreferences.getString(MyPreferences.PREF_KEY_PROXY_IP, "");
         proxyPort = sharedPreferences.getString(MyPreferences.PREF_KEY_PROXY_PORT, "");
+
 
         String method = "get";
         if(action == 0)
@@ -129,6 +122,9 @@ public class SNMPObjectDisplay extends AppCompatActivity {
 
             //parsowanie JSONA do SNMPObject
             String jsonString = new GetObject().execute(method, mOID).get();
+            if (jsonString == null) {
+                throw new Exception("Null JSON response");
+            }
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray array = new JSONArray();
             SNMPObject snmpObject = new SNMPObject(jsonObject);
@@ -151,7 +147,7 @@ public class SNMPObjectDisplay extends AppCompatActivity {
         {
             jsonEx.printStackTrace();
             Toast.makeText(getApplicationContext(), "Wrong response from server", Toast.LENGTH_LONG).show();
-            moveTaskToBack(true);
+            finish();
         }
 
     }

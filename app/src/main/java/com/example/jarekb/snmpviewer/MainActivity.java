@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setLogo(R.mipmap.ic_launcher);
 
-        Button buttonOK = (Button) findViewById(R.id.button2);
+        Button buttonOK = (Button) findViewById(R.id.btn_execute);
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
