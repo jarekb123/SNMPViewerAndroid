@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         oid = editTextOID.getText().toString();
 
         RadioGroup methodsGroup = (RadioGroup) findViewById(R.id.radio_method);
-        int methodID = 0;
+        long methodID = 0;
 
         switch (methodsGroup.getCheckedRadioButtonId())
         {
